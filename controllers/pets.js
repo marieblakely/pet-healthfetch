@@ -90,6 +90,19 @@ const deleteVisit = async (req, res) => {
   }
 }
 
+async function deletePet(req, res) {
+  try {
+    const pet = await Pet.findByIdAndDelete(req.params.petId)
+    const profile = await Profile.findById(req.user.profile)
+    profile.pets.remove({ _id: req.params.petId })
+    await profile.save()
+    res.status(200).json(pet)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
+}
+
 export {
   createVisit,
   updateVisit,
@@ -98,5 +111,6 @@ export {
 	create,
 	index,
 	show,
-	update
+	update, 
+  deletePet as delete
 }
