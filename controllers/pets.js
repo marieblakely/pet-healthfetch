@@ -103,6 +103,25 @@ async function deletePet(req, res) {
   }
 }
 
+async function addPhoto(req, res) {
+  try {
+      const imageFile = req.files.photo.path
+      const image = await cloudinary.uploader.upload(
+      imageFile, 
+      { tags: `${req.user.email}` }
+      )
+      const pet = await Pet.findById(req.params.petId)
+      pet.photos.push(image.url)
+      await pet.save()
+      res.status(201).json(pet)
+  } catch (err) {
+      console.log(err)
+      res.json(err)
+  }
+}
+
+
+
 export {
   createVisit,
   updateVisit,
@@ -112,5 +131,6 @@ export {
 	index,
 	show,
 	update, 
-  deletePet as delete
+  deletePet as delete,
+  addPhoto,
 }
