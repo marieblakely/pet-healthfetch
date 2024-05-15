@@ -60,7 +60,7 @@ async function createVisit(req, res) {
     const pet = await Pet.findById(req.params.petId)
     pet.visits.push(req.body)
     await pet.save()
-    const newVisit = pet.visits.at(-1)
+    const newVisit = pet.visits[pet.visits.length - 1]
     res.status(201).json(newVisit)
   } catch (error) {
     res.status(500).json(error)
