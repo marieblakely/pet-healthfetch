@@ -18,5 +18,6 @@ router.post('/:petId/visits', checkAuth, petsCtrl.createVisit)
 router.put('/:petId/visits', checkAuth, petsCtrl.updateVisit)
 router.delete('/:petId/visits/:visitId', checkAuth, petsCtrl.deleteVisit)
 router.put('/:petId/add-photo', checkAuth, petsCtrl.addPhoto)
+router.put('/:petId/delete-photo/:photoIdx', checkAuth, petsCtrl.deletePhoto)
 
 export { router }

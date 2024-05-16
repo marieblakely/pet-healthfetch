@@ -121,7 +121,17 @@ async function addPhoto(req, res) {
   }
 }
 
-
+async function deletePhoto(req, res) {
+  try {
+      const pet = await Pet.findById(req.params.petId)
+      pet.photos.splice(req.params.photoIdx, 1)
+      await pet.save()
+      res.status(200).json(pet)
+  } catch (err) {
+      console.log(err)
+      res.json(err)
+  }
+}
 
 export {
   createVisit,
@@ -134,4 +144,5 @@ export {
 	update, 
   deletePet as delete,
   addPhoto,
+  deletePhoto,
 }
