@@ -29,7 +29,7 @@ const petSchema = new Schema(
       type: Schema.Types.ObjectId, ref: 'Profile' 
     },    
     photos: {
-      type: String,
+      type: [String],
     },
     name: {
       type: String,
